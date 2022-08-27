@@ -47,9 +47,15 @@ public class EventService {
         events.forEach(event -> {
             Set<Band> bands = event.getBands();
             if (bands != null && !bands.isEmpty()) {
+                // Update Event title with Bands size
+                event.setTitle(event.getTitle().concat(" [" + bands.size() + "]"));
+
                 bands.forEach(band -> {
                     Set<Member> members = band.getMembers();
                     if (members != null && !members.isEmpty()) {
+                        // Update Band title with Members size
+                        band.setName(band.getName().concat(" [" + members.size() + "]"));
+
                         members.forEach(member -> {
                             if (member.getName().toLowerCase().contains(query.toLowerCase())) {
                                 result.add(event);
