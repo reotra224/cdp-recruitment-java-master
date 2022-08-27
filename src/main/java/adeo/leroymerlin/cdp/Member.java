@@ -11,7 +11,7 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    String name;
+    private String name;
 
     public String getName() {
         return name;

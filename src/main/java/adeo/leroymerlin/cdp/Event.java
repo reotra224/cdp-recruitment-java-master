@@ -1,6 +1,7 @@
 package adeo.leroymerlin.cdp;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -66,5 +67,18 @@ public class Event {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return id.equals(event.id) && title.equals(event.title) && imgUrl.equals(event.imgUrl) && Objects.equals(nbStars, event.nbStars) && Objects.equals(comment, event.comment);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, imgUrl, nbStars, comment);
     }
 }

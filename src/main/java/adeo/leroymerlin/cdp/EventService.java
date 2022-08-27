@@ -3,8 +3,8 @@ package adeo.leroymerlin.cdp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class EventService {
@@ -36,9 +36,30 @@ public class EventService {
     }
 
     public List<Event> getFilteredEvents(String query) {
+        List<Event> result = new ArrayList<>();
+
         List<Event> events = eventRepository.findAllBy();
         // Filter the events list in pure JAVA here
+        if (events == null || events.isEmpty()) {
+            return result;
+        }
 
-        return events;
+        events.forEach(event -> {
+            Set<Band> bands = event.getBands();
+            if (bands != null && !bands.isEmpty()) {
+                bands.forEach(band -> {
+                    Set<Member> members = band.getMembers();
+                    if (members != null && !members.isEmpty()) {
+                        members.forEach(member -> {
+                            if (member.getName().contains(query)) {
+                                result.add(event);
+                            }
+                        });
+                    }
+                });
+            }
+        });
+        // Pour éliminer les évènements duppliqués
+        return result.stream().distinct().collect(Collectors.toList());
     }
 }
