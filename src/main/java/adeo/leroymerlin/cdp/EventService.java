@@ -51,7 +51,7 @@ public class EventService {
                     Set<Member> members = band.getMembers();
                     if (members != null && !members.isEmpty()) {
                         members.forEach(member -> {
-                            if (member.getName().contains(query)) {
+                            if (member.getName().toLowerCase().contains(query.toLowerCase())) {
                                 result.add(event);
                             }
                         });
