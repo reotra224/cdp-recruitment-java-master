@@ -12,7 +12,7 @@ public class Band {
 
     private String name;
 
-    @OneToMany(fetch=FetchType.EAGER)
+    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Member> members;
 
     public Set<Member> getMembers() {
