@@ -20,8 +20,13 @@ public class EventService {
         return eventRepository.findAllBy();
     }
 
-    public void delete(Long id) {
-        eventRepository.deleteById(id);
+    public boolean delete(Long id) {
+        Optional<Event> eventInDB = eventRepository.findById(id);
+        if (eventInDB.isPresent()) {
+            eventRepository.deleteById(id);
+        }
+        Optional<Event> eventRemoved = eventRepository.findById(id);
+        return eventRemoved.isEmpty();
     }
 
     public Event update(Long id, Event event) {

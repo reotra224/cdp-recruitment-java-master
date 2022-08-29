@@ -73,6 +73,15 @@ public class EventServiceTest {
         Mockito.when(repository.save(event1)).thenReturn(event1);
 
         Event eventUpdated = service.update(1L, event1);
+
+        Mockito.verify(repository).save(event1);
         assertNotEquals("Event 1", eventUpdated.getTitle());
     }
+
+    @Test
+    void delete_shouldDeleteItemFromDataBase_whenItemIsDeleted() {
+        Mockito.when(repository.findById(1L)).thenReturn(Optional.ofNullable(event1)).thenReturn(Optional.empty());
+        assertTrue(service.delete(1L));
+    }
+
 }
