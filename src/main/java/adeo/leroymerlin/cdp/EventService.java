@@ -43,6 +43,10 @@ public class EventService {
     public List<Event> getFilteredEvents(String query) {
         List<Event> result = new ArrayList<>();
 
+        if (query == null || query.isBlank()) {
+            return result;
+        }
+
         List<Event> events = eventRepository.findAllBy();
         // Filter the events list in pure JAVA here
         if (events == null || events.isEmpty()) {

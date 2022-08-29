@@ -12,6 +12,14 @@ public class Band {
 
     private String name;
 
+    public Band() {
+    }
+
+    public Band(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Member> members;
 
