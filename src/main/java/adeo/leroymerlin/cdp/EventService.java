@@ -24,7 +24,7 @@ public class EventService {
         eventRepository.deleteById(id);
     }
 
-    public void update(Long id, Event event) {
+    public Event update(Long id, Event event) {
         Optional<Event> eventInDB = eventRepository.findById(id);
         if (eventInDB.isEmpty()) {
             throw new RuntimeException("Event with ID #" + id + " not found.");
@@ -32,7 +32,7 @@ public class EventService {
         if (!eventInDB.get().getId().equals(event.getId())) {
             throw new RuntimeException("Event in DB is not the same as the one to modify");
         }
-        eventRepository.save(event);
+        return eventRepository.save(event);
     }
 
     public List<Event> getFilteredEvents(String query) {
